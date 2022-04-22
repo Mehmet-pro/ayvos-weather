@@ -1,0 +1,138 @@
+{%extends "base.html"%}
+{%block title%}
+    <title>Main Menu</title>
+{%endblock%}
+
+{%block content%}
+
+<div class="container">
+<!-- modify city modal  -->
+{%if request.user.is_staff%}
+<form action="" method="post">
+  <div class="modal" id="modify-city" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>Modify City</h2>
+        <a href="/" class="btn-close" aria-hidden="true">×</a>
+      </div>
+      <div class="modal-body">
+        {%if city_modify_form%} 
+          {{city_modify_form}}
+        {%else%}
+        <p>successfully deleted</p>
+        {%endif%}
+      </div>
+      <div class="modal-footer">
+        <button class="save" name="save" value="save">Save</button>
+        <button class="delete" name="delete" value="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</form> 
+<!-- add city modal -->
+<form action="" method="post">
+  <div class="modal" id="add-city" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>Add City</h2>
+        <a href="/" class="btn-close" aria-hidden="true">×</a>
+      </div>
+      <div class="modal-body">
+          <input type="text" class="city" name="city" value="">
+          
+      </div>
+      <div class="modal-footer">
+        <button class="add" name="add" value="add">Add</button>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- add user modal -->
+<form action="" method="post">
+  <div class="modal" id="add-user" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>Add User</h2>
+        <a href="/" class="btn-close" aria-hidden="true">×</a>
+      </div>
+      <div class="modal-body">
+        <div class="user-info">
+          <!-- user creation form -->
+            {{signup_form}}
+            <!-- error handeling -->
+            {%for message in messages%}
+                  {{message}}
+            {%endfor%}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="add" name="add-user" value="add">Add</button>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- modify user modal -->
+<form action="" method="post">
+  <div class="modal" id="modify-user" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2>modify User</h2>
+        <a href="/" class="btn-close" aria-hidden="true">×</a>
+      </div>
+      <div class="modal-body">
+        <div class="user-info">
+          {%if update_user_from%}
+            {{update_user_from}}
+          {%else%}
+            <p>successfully deleted</p>
+          {%endif%}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save" name="update-user" value="update">Update</button>
+        <button class="delete" name="delete-user" value="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</form>
+{%endif%}
+  <h1>Menu</h1>
+{%if request.user.is_staff%}
+<div>
+  <button class="accordion">Edit Locations</button>
+  <div id='accordion-content0' class="accordion-content">
+      <input type="text" name="location" class="location"><a href="#add-city">Add</a>
+      {%for city in cities%}
+        <a href="?c={{city}}#modify-city"><p class="city">{{city}}</p></a>
+      {%endfor%}
+  </div>
+</div>
+{%endif%}
+  <button  class="accordion">Weather</button>
+  <div id='accordion-content1' class="accordion-content">
+    <input type="text" name="location" class="location">
+    {%for city in cities%}
+      <a href="{% url 'weather' city %}"><p class="city">{{city}}</p></a>
+    {%endfor%}
+  </div>
+{%if request.user.is_staff%}
+  <button class="accordion">Users</button>
+  <div id='accordion-content2' class="accordion-content">
+    <a href="#add-user">Add</a>
+    {%for user in users%}
+        {%if user.username == "root"%}
+        <p class="user" style="cursor: not-allowed;">{{user}}</p>
+        {%else%}
+        <a href="?u={{user.id}}#modify-user"><p class="user">{{user}}</p></a>
+        {%endif%}
+    {%endfor%}
+  </div>
+{%endif%}
+  <button class="accordion">Logs</button>
+  <div id='accordion-content3' class="accordion-content">
+    {%for user in users%}
+        <a href="{% url 'logs' user.id %}"><p class="user">{{user}}</p></a>
+    {%endfor%}
+  </div>
+</div>
+{%endblock%}

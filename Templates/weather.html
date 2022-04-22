@@ -1,0 +1,46 @@
+{%extends "base.html"%}
+{%block title%}
+    <title>
+        {%if w_data%}
+        {{w_data.name}}|{{w_data.sys.country}}
+        {%else%}
+        Ayvos | weather
+        {%endif%}
+    </title>
+    <style>
+        body{
+            background-color:darkcyan;
+        }
+    </style>
+{%endblock%}
+
+{%block content%}
+<div class="container">
+    <div class="search">
+        <input type="text" name="location" class="location">
+        {%for city in cities%}
+        <a href="{% url 'weather' city %}"><p class="city">{{city}}</p></a>
+        {%endfor%}
+    </div>
+    {%if w_data%}
+    <div class="head">{{w_data.name}},{{w_data.sys.country}} <img src="https://openweathermap.org/img/wn/{{w_data.weather.0.icon}}@2x.png" alt="icon"></div>
+    <div class="weather">
+        <p>Weather:{{w_data.weather.0.main}}</p>
+        <p>Description:{{w_data.weather.0.description}}</p>
+    </div>
+    <div class="temp">
+        <p>Temp:{{w_data.main.temp}}</p>
+        <p>Feels Like:{{w_data.main.feels_like}}</p>
+        <p>Humidity:{{w_data.main.humidity}}</p>
+    </div>
+    <div class="wind">
+        <p>Wind Speed:{{w_data.wind.speed}}</p>
+        <p>Wind Degree:{{w_data.wind.deg}}</p>
+    </div>
+    {%else%}
+    {%for message in messages%}
+    {{message}}
+    {%endfor%}
+    {%endif%}
+</div>
+{%endblock%}

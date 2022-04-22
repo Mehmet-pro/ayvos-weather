@@ -1,0 +1,205 @@
+@import 'reset.css';
+
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+}
+.log-container{
+  width: 60%;
+  margin: 50px auto;
+}
+.log-container table{
+  text-align: center;
+  width: -webkit-fill-available;
+}
+table, th, td {
+  border: 1px solid black;
+}
+a{
+  color:#000;
+}
+.accordion {
+  width: 100%;
+  background-color: whitesmoke;
+  border: none;
+  outline: none;
+  text-align: left;
+  padding: 15px 20px;
+  font-size: 18px;
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+}
+
+.accordion p{
+  font-size: 18px;
+  color: #444;
+}
+
+.accordion:hover, .accordion.open {
+  background-color: #ddd;
+}
+
+.accordion-content {
+  background-color: white;
+  border-left: 1px solid whitesmoke;
+  border-right: 1px solid whitesmoke;
+  padding: 0 20px;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease-in-out;
+}
+.accordion-content p{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.accordion-content p:hover{
+  color:rgb(184, 184, 184);
+}
+
+.modal:before {
+  content: "";
+  display: none;
+  background: rgba(0,0,0,0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.modal:target:before {
+  display: block;
+}
+.modal:target .modal-dialog {
+  transform: translate(0,0);
+  top: 20%;
+}
+.modal-dialog {
+  background: #fefefe;
+  border: #333 solid 1px;
+  border-radius: 5px;
+  margin-left: 12px;
+  position: fixed;
+  z-index: 11;
+  width: 30%;
+  transform: translate(0,-500%);
+  transition: transform 0.3s ease-out;
+}
+.modal-body {
+  padding: 20px;
+}
+.modal-header, .modal-footer {
+  padding: 10px 20px;
+}
+.modal-header {
+  border-bottom: #eee solid 1px;
+}
+.modal-header h2 {
+  font-size: 20px;
+}
+.modal-footer {
+  border-top: #eee solid 1px;
+  text-align: right;
+}
+.modal-body .user-info{
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 264px;
+  grid-row-gap: 10px;
+}
+.btn-close{
+  color: #aaa;
+  font-size: 30px;
+  text-decoration: none;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.btn-close:hover{
+  color: #919191;
+}
+.save,.delete,.add{
+  border:0;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 8px;
+  text-decoration: none;
+  text-align: center;
+  min-width: 60px;
+  position: relative;
+  cursor: pointer;
+}
+.save,.add{
+  background-color: #00C851;
+}
+.delete{
+  background-color:#ff4444;
+}
+
+.location{
+  height: 24px;
+  width: 98%;
+  margin: 10px 0 10px 0;
+}
+h1{
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.login{
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 200px;
+}
+.login h1{
+  padding: 30px;
+  background-color: #ebebeb;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.loginForm{
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.loginForm form{
+  width: 100%;
+  text-align: left;
+  display: inline-grid;
+}
+
+.loginForm form input{
+  height: 30px;
+  border: 1px solid #e7e7e7;
+}
+.loginForm form label{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.loginForm form button{
+  height: 36px;
+  margin-top: 20px;
+  width: 110px;
+  border: 0;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.loginForm form button:hover{
+  background-color: grey;
+  color: white;
+}
+
+.search{
+  background-color: white;
+}

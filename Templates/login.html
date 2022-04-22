@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{%block title%}
+<title>Login</title>
+{% endblock title %}
+    
+{%block content%}
+    <div class="login">
+        <h1>Login</h1>
+        <div class="loginForm">
+            <form action="" method="post">
+                {{login_form}}
+                <button>Login</button>
+                {%for message in messages%}
+                {{message}}
+                {%endfor%}
+            </form>
+        </div>
+    </div>
+{%endblock%}

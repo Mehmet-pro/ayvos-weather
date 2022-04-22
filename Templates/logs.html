@@ -1,0 +1,86 @@
+{%extends "base.html"%}
+{%load filters%}
+{%block title%}
+<title>Logs | Ayvos weather</title>
+{%endblock%}
+{%block content%}
+<div class="log-container">
+    <div class="filters">
+    <h1>Filters</h1>
+        <form action="" method="get" id="filter-form">
+            <label for="from">From:</label>
+            <input type="datetime-local" name="from" id="from" required> <br>
+            <label for="till">To:</label>
+            <input type="datetime-local" name="till" id="till" required> <br>
+            
+            <label for="city">Location:</label>
+            <select name="city" id="city-select">
+            <option value="">-------</option>
+            {%if filter%}
+            {%regroup filter|sort_by:"location_id" by location_id as cities%}
+                {%for city in cities%}
+                    {%for c in city.list%}
+                    {%if forloop.first%}
+                        <option value="{{c.location_id}}">{{c.location_id}}</option>
+                    {%endif%}
+                    {%endfor%}
+                {%endfor%}
+            
+            {%endif%}
+            </select> <br>
+            
+            <label for="state">Response State:</label>
+            <select name="state" id="state">
+                <option value="">-------</option>
+                <option value="succeed">Succeed</option>
+                <option value="failed">Failed</option>
+            </select> <br>
+            
+            <button>Apply</button>
+        </form>
+    </div>
+    {%if logs%}
+    <table>
+        {%for log in logs%}
+        {%if forloop.first%}
+        <tr>
+            <th colspan="7">Username : {{log.user_id|capfirst}}</th>
+        </tr>
+        <tr>
+            <th>User Id</th>
+            <th>Log Date</th>
+            <th>Location Id</th>
+            <th>Ip Address</th>
+            <th>Resault</th>
+            <th>Response Time</th>
+            <th>Response State</th>
+        </tr>
+        {%endif%}
+        <tr>
+            <td>{{log.user_id.id}}</td>
+            <td>{{log.log_date}}</td>
+            <td>
+                {%if log.location_id.id%}
+                {{log.location_id.city}}
+                {%else%}
+                None
+                {%endif%}
+            </td>
+            <td>{{log.ip_address}}</td>
+            <td>{{log.resault}}</td>
+            <td>{{log.response_time}}ms</td>
+            <td>
+                {%if log.response_state == True%}
+                    Succeed
+                {%else%}
+                    Failed
+                {%endif%}
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    {%else%}
+    <h1>There is No Logs For This User</h1>
+    {%endif%}
+</div>
+{%endblock%}
